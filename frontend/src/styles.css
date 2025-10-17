@@ -1,0 +1,10 @@
+:root{ --purple:#6b21a8; --gold:#d4af37; --bg:#fff; --text:#111 }
+*{box-sizing:border-box}
+body{font-family: Inter, system-ui, Arial; background:var(--bg); color:var(--text); margin:0}
+.header{background:linear-gradient(90deg,var(--purple),#4c1d95); padding:12px 20px; color:white; display:flex; align-items:center; justify-content:space-between}
+.brand{font-weight:700; font-size:20px; color:var(--gold)}
+.container{max-width:1000px; margin:24px auto; padding:0 16px}
+.services{display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; margin-top:16px}
+.service{border:1px solid #eee; padding:12px; border-radius:8px; background:white}
+.price{margin-top:8px; font-weight:700; color:var(--purple)}
+.footer{padding:12px; text-align:center; color:#666; margin-top:32px}

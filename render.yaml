@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: mansati-backend
+    env: node
+    plan: free
+    buildCommand: cd backend && npm install && npm run build
+    startCommand: cd backend && npm start
+    envVars:
+      - key: MONGO_URL
+        sync: false
+      - key: PORT
+        value: 4000
+    autoDeploy: true
+
+  - type: web
+    name: mansati-frontend
+    env: node
+    plan: free
+    buildCommand: cd frontend && npm install && npm run build
+    startCommand: cd frontend && npm run start
+    envVars:
+      - key: VITE_API_URL
+        value: https://mansati-backend.onrender.com
+    autoDeploy: true
