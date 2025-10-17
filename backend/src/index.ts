@@ -10,7 +10,7 @@ import path from 'path';
 
 const app = express();
 
-// ✅ إعداد CORS للسماح فقط للواجهة الأمامية الخاصة بك بالاتصال
+// ✅ السماح بالاتصال من واجهتك فقط
 app.use(cors({
   origin: ['https://mansati-frontend-ra8q.onrender.com'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
@@ -19,13 +19,18 @@ app.use(cors({
 
 app.use(express.json());
 
-// ✅ الاتصال بقاعدة البيانات (تلقائيًا من المتغير أو محلي)
-const MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost:27017/mansati';
-mongoose.connect(MONGO_URL)
-  .then(() => console.log('✅ MongoDB connected'))
-  .catch(e => console.error('❌ Mongo connection error', e));
+// ✅ الاتصال بقاعدة البيانات فقط إذا تم توفيرها من Render
+const MONGO_URL = process.env.MONGO_URL;
 
-// ✅ مسارات API الأساسية
+if (MONGO_URL) {
+  mongoose.connect(MONGO_URL)
+    .then(() => console.log('✅ MongoDB connected'))
+    .catch(e => console.error('❌ Mongo connection error', e));
+} else {
+  console.log('⚠️ No MongoDB URL provided — skipping database connection');
+}
+
+// ✅ مسارات API
 app.get('/api', (req, res) => {
   res.json({ message: 'مرحباً بك في واجهة منصّتي الخلفية!' });
 });
